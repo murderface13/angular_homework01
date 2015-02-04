@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app = "homework">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="UsersListCtrl">
+
+<div ng-view ></div>
+
+<div class="col-xs-12">
+    <h1>Список гостей</h1>
+</div>
+<div class="col-xs-4 invited">
+  <div class="item" ng-repeat="user in users | filter: {inHall:false} | orderBy:user.name">
+      <p ng-click = "change_pos(user)">{{user.name}}</p>
+      <div class="delete">
+        <a class="btn btn-danger" href="#" role="button" ng-click="destroy_guest(user)">
+          <span class="glyphicon glyphicon-remove"></span>
+        </a>
+      </div>
+  </div>
+</div>
+
+<div class="col-xs-4 in-hall">
+  <div class="item" ng-repeat="user in users | filter: {inHall:true} | orderBy:user.name" ng-click = "change_pos()">
+    <p ng-click = "change_pos(user)">{{user.name}}</p>
+  </div>
+</div>
+<div class="col-xs-4">
+    <h2>Новый гость</h2>
+
+    <div class="item">
+        <form role="form" ng-submit = "create_guest()">
+            <div class="form-group">
+                <label for="name">Имя гостя</label>
+                <input type="text" id="name" class="form-control" name="name" ng-model="text" placeholder="Имя гостя"/>
+            </div>
+            <button type="submit" id="addGuest" class="btn btn-default" >Добавить</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
